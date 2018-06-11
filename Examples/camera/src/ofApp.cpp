@@ -3,12 +3,15 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     // cam
-    video.setDeviceID( 0 );
+    video.setDeviceID( 1 );
     video.setDesiredFrameRate( 30 );
     video.initGrabber( 640, 480 );
 
     // yolo
-    yolo.setup(ofToDataPath("yolov2-tiny.cfg"), ofToDataPath("yolov2-tiny.weights"), ofToDataPath("coco.names"));
+    yolo.setup(ofToDataPath("yolov2-tiny.cfg"),
+               ofToDataPath("yolov2-tiny.weights"),
+               ofToDataPath("coco.names"));
+    
     yolo.setConfidenceThreshold(0.2);
 }
 

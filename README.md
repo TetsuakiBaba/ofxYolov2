@@ -21,7 +21,7 @@ See Examples
 1. Install OpenCV by brew ( $ brew install opencv )
 2. Based on OpenCV version, Please re-write addon_config.mk file. End of the file, there are some description about opencv path for your system. Please re-write the version according to your OpenCV version. Current (2018/6/11) is 3.4.1_2, If you find other version on your directory tree, /usr/local/Cellar/opencv , please do not forget fill in the correct version on the addon_config.mk file.
 3. Download yolov2 or yolov2-tiny weights and cfg file to data directory for each example or your application. https://pjreddie.com/darknet/yolov2/
-[Attention] Please do not include OpenCV addon in OF. 
+[Attention] Please do not include OpenCV addon in OF.  Be sure to add only ofxYolov2 addon by projectgenerator. 
 
 ## Licence
 [MIT](https://opensource.org/licenses/MIT)

@@ -9,7 +9,7 @@
 		<string>46</string>
 		<key>objects</key>
 		<dict>
-			<key>8A5B59933D4409DB5B871D6C</key>
+			<key>D1A9DAE1CF1BDA6308F8A454</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -18,9 +18,9 @@
 				<key>isa</key>
 				<string>PBXFileReference</string>
 				<key>name</key>
-				<string>ofxYolo.h</string>
+				<string>ofxYolov2.h</string>
 				<key>path</key>
-				<string>../../../../addons/ofxYolov2/src/ofxYolo.h</string>
+				<string>../../../../addons/ofxYolov2/src/ofxYolov2.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
@@ -28,8 +28,8 @@
 			<dict>
 				<key>children</key>
 				<array>
-					<string>460BEFD1CC5797B605051BD7</string>
-					<string>8A5B59933D4409DB5B871D6C</string>
+					<string>D8AA67E487313E42D4BC05F6</string>
+					<string>D1A9DAE1CF1BDA6308F8A454</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -51,14 +51,14 @@
 				<key>sourceTree</key>
 				<string>&lt;group&gt;</string>
 			</dict>
-			<key>0A4D5531884B7C0C119C286B</key>
+			<key>02A9F30C37798E39CCC0205D</key>
 			<dict>
 				<key>fileRef</key>
-				<string>460BEFD1CC5797B605051BD7</string>
+				<string>D8AA67E487313E42D4BC05F6</string>
 				<key>isa</key>
 				<string>PBXBuildFile</string>
 			</dict>
-			<key>460BEFD1CC5797B605051BD7</key>
+			<key>D8AA67E487313E42D4BC05F6</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.cpp.cpp</string>
@@ -67,9 +67,9 @@
 				<key>isa</key>
 				<string>PBXFileReference</string>
 				<key>name</key>
-				<string>ofxYolo.cpp</string>
+				<string>ofxYolov2.cpp</string>
 				<key>path</key>
-				<string>../../../../addons/ofxYolov2/src/ofxYolo.cpp</string>
+				<string>../../../../addons/ofxYolov2/src/ofxYolov2.cpp</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
@@ -375,7 +375,7 @@
 				<array>
 					<string>E4B69E200A3A1BDC003C02F2</string>
 					<string>E4B69E210A3A1BDC003C02F2</string>
-					<string>0A4D5531884B7C0C119C286B</string>
+					<string>02A9F30C37798E39CCC0205D</string>
 				</array>
 				<key>isa</key>
 				<string>PBXSourcesBuildPhase</string>

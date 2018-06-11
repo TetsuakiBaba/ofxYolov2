@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxYolo.h"
+#include "ofxYolov2.h"
 
 class ofApp : public ofBaseApp{
 public:
@@ -9,7 +9,7 @@ public:
     void update();
     void draw();
     ofVideoGrabber video;
-    ofxYolo yolo;
+    ofxYolov2 yolo;
     
     void keyPressed(int key);
 };
