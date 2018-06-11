@@ -4,9 +4,10 @@ ofxYolov2
 ## Description
 ofxYolov2 is a YOLO(You Look Only Once) addon for openframeworks.
 Please refer YOLO official website for more details of YOLO. https://pjreddie.com/darknet/yolo/
-If you have Nvidia GPUs on your PC, It is better to use ofxDarknet, https://github.com/mrzl/ofxDarknet.
-OpenCV v.3.3.1 or more includes Yolov2 library (https://docs.opencv.org/3.4.1/da/d9d/tutorial_dnn_yolo.html) in
-their own package. Therefore I design ofxYolov2 with OpenCV v.3.3.1 or more.
+If you have a Nvidia GPU(s) on your PC, I just recommend to use ofxDarknet instead of this addon, https://github.com/mrzl/ofxDarknet.
+
+OpenCV v.3.3.1 or upper includes Yolov2 library ( https://docs.opencv.org/3.4.1/da/d9d/tutorial_dnn_yolo.html ) in
+their own package. Therefore I designed ofxYolov2 with OpenCV v.3.3.1 or upper version.
 
 I created this addon for beginers or learner who are going to try object detection with Yolo on OF.
 Attention:  runs only CPU. not GPU.
@@ -28,3 +29,7 @@ See Examples
 
 ## Author
 [TetsuakiBaba](https://github.com/TetsuakiBaba)
+
+## Reference
+1. How to implement OpenCV Yolo on Openframeworks: https://qiita.com/buchayaty/items/4020100f531c07418f38
+2. YOLO: https://pjreddie.com/darknet/yolo/
