@@ -25,6 +25,8 @@ See Examples
 
 4. Import Example/camera or single_image by project generator and add only ofxYolov2 as an addon.  [Attention] Please do not include OpenCV addon in OF.  Be sure to add only ofxYolov2 addon by projectgenerator. 
 
+## Compatibility
+- only macOS ( tested on Hight Sierra and Sierra)
 
 ## Licence
 [MIT](https://opensource.org/licenses/MIT)
