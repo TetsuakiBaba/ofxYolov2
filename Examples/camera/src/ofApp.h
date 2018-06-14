@@ -12,4 +12,5 @@ public:
     ofxYolov2 yolo;
     
     void keyPressed(int key);
+    ofImage img;
 };

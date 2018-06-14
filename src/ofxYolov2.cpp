@@ -7,9 +7,25 @@ Object::Object(string _name, float _p, float _x, float _y, float _w, float _h)
     r.set(_x, _y, _w, _h);
 }
 
+Object::~Object()
+{
+    
+}
+
+
 ofxYolov2::ofxYolov2()
 {
     
+}
+
+ofRectangle Object::getScaledBB(float _w, float _h)
+{
+    ofRectangle r_return;
+    r_return.set(r.x*_w - r.width*_w/2.0,
+                 r.y*_h - r.height*_h/2.0,
+                 r.width * _w,
+                 r.height * _h);
+    return r_return;
 }
 
 ofxYolov2::~ofxYolov2()
@@ -23,15 +39,12 @@ void ofxYolov2::draw(float _x, float _y, float _w, float _h)
     ofSetLineWidth(3);
     ofSetColor(255,255,255, 100);
     for( int i = 0; i < object.size(); i++ ){
-        float x = object.at(i).r.x * _w - (object.at(i).r.width*_w)/2.0;
-        float y = object.at(i).r.y * _h - (object.at(i).r.height*_h)/2.0;
-        float w = object.at(i).r.width * _w;
-        float h = object.at(i).r.height * _h;
-        ofDrawRectangle(x, y, w, h);
-
+        ofRectangle r_scaled = object.at(i).getScaledBB(_w, _h);
+        ofDrawRectangle(r_scaled);
         ofDrawBitmapStringHighlight(object.at(i).name + ": " + ofToString(object.at(i).p),
-                                    x,y);
+                                    r_scaled.x,r_scaled.y);
     }
+    ofSetColor(255,255,255, 255);
 }
 
 cv::Mat ofxYolov2::toCV(ofPixels &pix)
@@ -51,33 +64,21 @@ void ofxYolov2::update(ofPixels &op)
     //! [Resizing without keeping aspect ratio]
     Mat resized;
     resize(frame, resized, cvSize(network_width, network_height));
-    //! [Resizing without keeping aspect ratio]
     
     //! [Prepare blob]
     Mat inputBlob = blobFromImage(resized, 1 / 255.F); //Convert Mat to batch of images
-    //! [Prepare blob]
     
     //! [Set input blob]
     net.setInput(inputBlob, "data");                   //set the network input
-    //! [Set input blob]
     
     //! [Make forward pass]
     Mat detectionMat = net.forward("detection_out");   //compute output
-    //! [Make forward pass]
     
-    /*
-     vector<double> layersTimings;
-     double freq = getTickFrequency() / 1000;
-     double time = net.getPerfProfile(layersTimings) / freq;
-     ostringstream ss;
-     ss << "FPS: " << 1000/time << " ; time: " << time << " ms";
-     putText(frame, ss.str(), cvPoint(20,20), 0, 0.5, Scalar(0,0,255));
-     */
     
     for (int i = 0; i < detectionMat.rows; i++)
     {
         
-        const int probability_index = 5;
+        const int probability_index = 5; // do not change.
         const int probability_size = detectionMat.cols - probability_index;
         float *prob_array_ptr = &detectionMat.at<float>(i, probability_index);
         
@@ -95,27 +96,10 @@ void ofxYolov2::update(ofPixels &op)
             int xRightTop = static_cast<int>((x + width / 2) * frame.cols);
             int yRightTop = static_cast<int>((y + height / 2) * frame.rows);
             
-            /*
-             rectangle(frame, cvRect(xLeftBottom, yLeftBottom,xRightTop - xLeftBottom,yRightTop - yLeftBottom), Scalar(0, 255, 0));
-             */
-            
-            
+
             if (objectClass < classNamesVec.size())
             {
-                /*
-                 ss.str("");
-                 ss << confidence;
-                 String conf(ss.str());
-                 */
                 String label = String(classNamesVec[objectClass]);
-                //                int baseLine = 0;
-                
-                /*
-                 CvSize labelSize = getTextSize(label, FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
-                 rectangle(frame, cvRect(xLeftBottom, yLeftBottom ,labelSize.width, labelSize.height + baseLine),Scalar(255, 255, 255), CV_FILLED);
-                 putText(frame, label, cvPoint(xLeftBottom, yLeftBottom + labelSize.height),
-                 FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0,0,0));
-                 */
                 ofRectangle r(x,y,width,height);
                 object.push_back(Object(label, confidence, x,y, width, height));
             }
@@ -134,13 +118,12 @@ void ofxYolov2::update(ofPixels &op)
 
 void ofxYolov2::setup(string _path_to_cfg, string _path_to_weights, string _path_to_names)
 {
-    String modelConfiguration = ofToDataPath(_path_to_cfg); // YOLOの.cfgファイルへのパスを記載
-    String modelBinary = ofToDataPath(_path_to_weights); // YOLOの.weightsファイルへのパスを記載
+    String modelConfiguration = ofToDataPath(_path_to_cfg);
+    String modelBinary = ofToDataPath(_path_to_weights);
     
-
     //! [Initialize network]
     net = readNetFromDarknet(modelConfiguration, modelBinary);
-    //! [Initialize network]
+
     if (net.empty())
     {
         cout << "Can't load network by using the following files: " << endl;
@@ -151,12 +134,13 @@ void ofxYolov2::setup(string _path_to_cfg, string _path_to_weights, string _path
     }
     
     // objectClassName
-    ifstream classNamesFile(ofToDataPath("coco.names")); // YOLOの.ClassNameファイルへのパスを記載
+    ifstream classNamesFile(ofToDataPath(_path_to_names));
     if (classNamesFile.is_open())
     {
         string className = "";
-        while (std::getline(classNamesFile, className))
+        while (std::getline(classNamesFile, className)){
             classNamesVec.push_back(className);
+        }
         
         for( auto itr : classNamesVec )
         {

@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     // cam
-    video.setDeviceID( 1 );
+    video.setDeviceID( 0 );
     video.setDesiredFrameRate( 30 );
     video.initGrabber( 640, 480 );
 
@@ -13,6 +13,8 @@ void ofApp::setup(){
                ofToDataPath("coco.names"));
     
     yolo.setConfidenceThreshold(0.2);
+    
+  
 }
 
 //--------------------------------------------------------------
@@ -27,7 +29,7 @@ void ofApp::update(){
 void ofApp::draw(){
     ofSetColor(255);
     video.draw(0,0);
-    yolo.draw(0,0, video.getWidth(), video.getHeight());
+    yolo.draw(0,0,video.getWidth(), video.getHeight());
     ofDrawBitmapString(ofToString(ofGetFrameRate(), 0),20, 20);
 }
 

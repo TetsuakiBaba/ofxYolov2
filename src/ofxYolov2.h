@@ -17,7 +17,9 @@ using namespace cv::dnn;
 class Object{
 public:
     Object(string _name, float _p, float _x, float _y, float _w, float _h);
+    ~Object();
     ofRectangle r;
+    ofRectangle getScaledBB(float _w, float _h);
     string name;
     float p;
 };
@@ -38,4 +40,5 @@ public:
     int network_height = 416;
     vector<string> classNamesVec;
     float confidenceThreshold;
+    ofTrueTypeFont font_info;
 };
