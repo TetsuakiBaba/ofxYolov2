@@ -16,12 +16,13 @@ using namespace cv::dnn;
 
 class Object{
 public:
-    Object(string _name, float _p, float _x, float _y, float _w, float _h);
+    Object(int _class_id, string _name, float _p, float _x, float _y, float _w, float _h);
     ~Object();
     ofRectangle r;
     ofRectangle getScaledBB(float _w, float _h);
     string name;
     float p;
+    int class_id;
 };
 
 class ofxYolov2{
@@ -31,8 +32,8 @@ public:
     void setup(string _path_to_cfg, string _path_to_weights, string _path_to_names);
     void draw(float _x, float _y, float _w, float _h);
     void update(ofPixels &op);
-    
     void setConfidenceThreshold(float _threshold);
+
     vector<Object> object;
     cv::Mat toCV(ofPixels &pix);
     dnn::Net net;

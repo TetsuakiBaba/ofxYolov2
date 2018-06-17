@@ -1,7 +1,8 @@
 #include "ofxYolov2.h"
 
-Object::Object(string _name, float _p, float _x, float _y, float _w, float _h)
+Object::Object(int _class_id, string _name, float _p, float _x, float _y, float _w, float _h)
 {
+    class_id = _class_id;
     name = _name;
     p = _p;
     r.set(_x, _y, _w, _h);
@@ -21,8 +22,8 @@ ofxYolov2::ofxYolov2()
 ofRectangle Object::getScaledBB(float _w, float _h)
 {
     ofRectangle r_return;
-    r_return.set(r.x*_w - r.width*_w/2.0,
-                 r.y*_h - r.height*_h/2.0,
+    r_return.set(r.x*_w,
+                 r.y*_h,
                  r.width * _w,
                  r.height * _h);
     return r_return;
@@ -41,8 +42,8 @@ void ofxYolov2::draw(float _x, float _y, float _w, float _h)
     for( int i = 0; i < object.size(); i++ ){
         ofRectangle r_scaled = object.at(i).getScaledBB(_w, _h);
         ofDrawRectangle(r_scaled);
-        ofDrawBitmapStringHighlight(object.at(i).name + ": " + ofToString(object.at(i).p),
-                                    r_scaled.x,r_scaled.y);
+        ofDrawBitmapStringHighlight("["+ofToString(i)+"]: "+object.at(i).name + ": " + ofToString(object.at(i).p),
+                                    r_scaled.x,r_scaled.y-10);
     }
     ofSetColor(255,255,255, 255);
 }
@@ -100,8 +101,9 @@ void ofxYolov2::update(ofPixels &op)
             if (objectClass < classNamesVec.size())
             {
                 String label = String(classNamesVec[objectClass]);
-                ofRectangle r(x,y,width,height);
-                object.push_back(Object(label, confidence, x,y, width, height));
+                ofRectangle r(x-width/2.0,y-height/2.0,width,height);
+                object.push_back(Object(objectClass, label, confidence, r.x,r.y, r.width, r.height));
+                
             }
             else
             {
