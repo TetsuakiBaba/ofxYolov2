@@ -242,15 +242,16 @@
 					<key>OTHER_LDFLAGS</key>
 					<array>
 						<string>$(OF_CORE_FRAMEWORKS) $(OF_CORE_LIBS)</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_core.dylib</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_imgproc.dylib</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_dnn.dylib</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_dnn_objdetect.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_core.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_imgproc.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_dnn.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_dnn_objdetect.dylib</string>
 					</array>
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/include/</string>
+						<string>src</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/include/</string>
 					</array>
 					<key>CONFIGURATION_BUILD_DIR</key>
 					<string>$(SRCROOT)/bin/</string>
@@ -308,15 +309,16 @@
 					<key>OTHER_LDFLAGS</key>
 					<array>
 						<string>$(OF_CORE_FRAMEWORKS) $(OF_CORE_LIBS)</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_core.dylib</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_imgproc.dylib</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_dnn.dylib</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_dnn_objdetect.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_core.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_imgproc.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_dnn.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_dnn_objdetect.dylib</string>
 					</array>
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/include/</string>
+						<string>src</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/include/</string>
 					</array>
 					<key>CONFIGURATION_BUILD_DIR</key>
 					<string>$(SRCROOT)/bin/</string>
@@ -457,15 +459,16 @@
 					<key>OTHER_LDFLAGS</key>
 					<array>
 						<string>$(OF_CORE_FRAMEWORKS) $(OF_CORE_LIBS)</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_core.dylib</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_imgproc.dylib</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_dnn.dylib</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_dnn_objdetect.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_core.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_imgproc.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_dnn.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_dnn_objdetect.dylib</string>
 					</array>
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/include/</string>
+						<string>src</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/include/</string>
 					</array>
 					<key>COMBINE_HIDPI_IMAGES</key>
 					<string>YES</string>
@@ -513,15 +516,16 @@
 					<key>OTHER_LDFLAGS</key>
 					<array>
 						<string>$(OF_CORE_FRAMEWORKS) $(OF_CORE_LIBS)</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_core.dylib</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_imgproc.dylib</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_dnn.dylib</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_dnn_objdetect.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_core.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_imgproc.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_dnn.dylib</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/lib/libopencv_dnn_objdetect.dylib</string>
 					</array>
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
-						<string>/usr/local/Cellar/opencv/3.4.1_2/include/</string>
+						<string>src</string>
+						<string>/usr/local/Cellar/opencv/3.4.1_5/include/</string>
 					</array>
 					<key>COMBINE_HIDPI_IMAGES</key>
 					<string>YES</string>

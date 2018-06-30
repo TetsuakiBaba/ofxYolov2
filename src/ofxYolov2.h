@@ -14,6 +14,23 @@ using namespace std;
 using namespace cv;
 using namespace cv::dnn;
 
+class TrainObject{
+public:
+    TrainObject(int _id, string _name, ofRectangle _r){
+        id = _id;
+        name = _name;
+        r.set(_r);
+    }
+    ~TrainObject(){
+        
+    }
+    int id;
+    string name;
+    ofRectangle r;
+    ofRectangle getScaledBB(float _w, float _h);
+};
+
+
 class Object{
 public:
     Object(int _class_id, string _name, float _p, float _x, float _y, float _w, float _h);
@@ -31,15 +48,37 @@ public:
     ~ofxYolov2();
     void setup(string _path_to_cfg, string _path_to_weights, string _path_to_names);
     void draw(float _x, float _y, float _w, float _h);
+    void drawAnnotation(float _x, float _y, float _w, float _h);
     void update(ofPixels &op);
     void setConfidenceThreshold(float _threshold);
 
+    void setNextAnnotation();
+    void setPreviousAnnotation();
+    
+    void loadAnnotationDir(string _path_to_file);
+    void loadAnnotationImage(string _path_to_file);
+    void loadBoundingBoxFile(string _path_to_file);
+    void saveAnnotation();
+    void saveBoundingBoxToFile(string _path_to_file);
+
+    void drawClassSelector();
+    
     vector<Object> object;
     cv::Mat toCV(ofPixels &pix);
     dnn::Net net;
     int network_width = 416;
     int network_height = 416;
     vector<string> classNamesVec;
+    vector<ofColor> detection_color;
     float confidenceThreshold;
     ofTrueTypeFont font_info;
+    vector<TrainObject>train;
+    string filename;
+    string filename_jpg;
+    string filename_txt;
+    string filepath;
+    ofDirectory dir_annotation;
+    int pos_annotation_file;
+    ofImage image_annotation;
+    int class_id_selected;
 };

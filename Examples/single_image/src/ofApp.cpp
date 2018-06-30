@@ -4,9 +4,9 @@
 void ofApp::setup(){
     img.load(ofToDataPath("dog.jpg"));
     // yolo
-    yolo.setup(ofToDataPath("yolov2-tiny-voc.cfg"),
-               ofToDataPath("yolov2-tiny-voc.weights"),
-               ofToDataPath("voc.names"));
+    yolo.setup(ofToDataPath("yolov2-tiny.cfg"),
+               ofToDataPath("yolov2-tiny.weights"),
+               ofToDataPath("coco.names"));
     yolo.setConfidenceThreshold(0.4);
     
     yolo.update(img.getPixels());
