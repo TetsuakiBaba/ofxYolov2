@@ -10,7 +10,7 @@ OpenCV v.3.3.1 or upper includes Yolov2 library ( https://docs.opencv.org/3.4.1/
 their own package. Therefore I designed ofxYolov2 with OpenCV v.3.3.1 or upper version.
 
 I created this addon for beginers or learner who are going to try object detection with Yolo on OF.
-Attention:  runs only CPU. not GPU.
+Attention:  it runs on OpenCL.
 
 
 ## Usage

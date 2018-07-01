@@ -4,7 +4,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    // yolo
+
+    // yolo setting up
     yolo.setup(ofToDataPath("yolov2-tiny.cfg"),
                ofToDataPath("yolov2-tiny.weights"),
                ofToDataPath("coco.names"));
@@ -25,14 +26,18 @@ void ofApp::draw(){
     ofDrawBitmapStringHighlight("Drag and Drop a dataset folder that includes jpg and txt files", 20,20);
    
     // Show YOLO Class Selector
-    yolo.drawClassSelector();
+    yolo.drawClassSelector(ofGetWidth()-250,20, 2);
 
     // Show YOLO annotation
-    yolo.drawAnnotation(0,0, yolo.image_annotation.getWidth(), yolo.image_annotation.getHeight());
+    yolo.drawAnnotation(0,0,
+                        yolo.image_annotation.getWidth(),
+                        yolo.image_annotation.getHeight());
 
     // Show YOLO Realtime detection result
     if( flg_show_yolo_detection ){
-        yolo.draw(0,0, yolo.image_annotation.getWidth(), yolo.image_annotation.getHeight());
+        yolo.draw(0,0,
+                  yolo.image_annotation.getWidth(),
+                  yolo.image_annotation.getHeight());
     }
     
     // Show bounding box selecting operation
@@ -41,7 +46,7 @@ void ofApp::draw(){
     ofDrawRectangle(r);
     
 
-    // show dagger
+    // show cross 
     ofSetLineWidth(1.0);
     ofSetColor(255,255,255,100);
     ofDrawLine(ofGetMouseX(), 0, ofGetMouseX(), ofGetHeight());
@@ -126,7 +131,7 @@ void ofApp::mouseReleased(int x, int y, int button){
         r.width = r.width/yolo.image_annotation.getWidth();
         r.height = r.height/yolo.image_annotation.getHeight();
         
-        yolo.train.push_back(TrainObject(yolo.class_id_selected, yolo.classNamesVec.at(id), r));
+        yolo.addTrainObject(r);
         yolo.saveAnnotation();
     }
     r.set(0,0,0,0);
@@ -154,5 +159,14 @@ void ofApp::gotMessage(ofMessage msg){
 
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){
-    yolo.loadAnnotationDir(dragInfo.files[0]);
+    ofDirectory dir;
+    dir.open(dragInfo.files[0]);
+    if( dir.isDirectory() ){
+        dir.close();
+        yolo.loadAnnotationDir(dragInfo.files[0]);
+    }
+    else{
+        ofSystemAlertDialog("Error: Please drop a directory.");
+    }
+    dir.close();
 }

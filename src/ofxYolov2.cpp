@@ -106,7 +106,7 @@ void ofxYolov2::drawAnnotation(float _x, float _y, float _w, float _h)
     for( int i = 0; i < train.size(); i++ ){
         ofNoFill();
         ofSetLineWidth(3);
-        ofSetColor(detection_color.at(train[i].id));
+        ofSetColor(detection_color.at(train[i].id),150);
         ofRectangle r_scaled = train.at(i).getScaledBB(_w, _h);
 
         ofDrawRectangle(r_scaled);
@@ -120,7 +120,7 @@ void ofxYolov2::drawAnnotation(float _x, float _y, float _w, float _h)
     
 
     for( int i = 0; i < train.size(); i++ ){
-        ofSetColor(detection_color[train[i].id]);
+        ofSetColor(detection_color[train[i].id],150);
         if( train[i].getScaledBB(image_annotation.getWidth(), image_annotation.getHeight()). inside(ofGetMouseX(), ofGetMouseY()) ){
             ofFill();
             ofDrawRectangle(train[i].getScaledBB(image_annotation.getWidth(), image_annotation.getHeight()));
@@ -238,7 +238,7 @@ void ofxYolov2::setup(string _path_to_cfg, string _path_to_weights, string _path
         detection_color.push_back(ofColor(100*((i+1)%2)+100,
                                           50*((i+2)%3)+100,
                                           25*((i+3)%4)+100,
-                                          200));
+                                          255));
     }
     
     // for gocen detection color
@@ -396,15 +396,29 @@ void ofxYolov2::setPreviousAnnotation()
     loadBoundingBoxFile(filename_txt);
 }
 
-void ofxYolov2::drawClassSelector()
+void ofxYolov2::drawClassSelector(float _x, float _y, int _row)
 {
     // Show Class Selector
+    int row = _row;
+    float x,y;
+
+    ofRectangle r_area(_x,
+                       _y,
+                       100*row,
+                       14*classNamesVec.size()/row);
+
+    ofNoFill();
+    ofDrawRectangle(r_area);
+    font_info.drawString("Select a class name",r_area.x,r_area.y);
     for( int i = 0; i < classNamesVec.size(); i++ ){
+        x = _x+100*(i%row);
+        y = _y+14+14*(i/row);
         ofNoFill();
         ofSetColor(detection_color.at(i));
-        
         ofRectangle r_name;
-        r_name.set(font_info.getStringBoundingBox(classNamesVec.at(i), ofGetWidth()-200, 10+12*i));
+        r_name.set(font_info.getStringBoundingBox(classNamesVec.at(i),
+                                                  x,y));
+
         if( r_name.inside(ofGetMouseX(),ofGetMouseY()) ){
             if( ofGetMousePressed() ){
                 class_id_selected = i;
@@ -415,12 +429,22 @@ void ofxYolov2::drawClassSelector()
         }
         
         if( class_id_selected == i ){
+            ofFill();
             ofDrawRectangle(r_name);
-            font_info.drawString(classNamesVec.at(i), ofGetWidth()-200, 10+12*i);
+            
+            ofSetColor(detection_color.at(i).getInverted());
+            font_info.drawString(classNamesVec.at(i),x,y);
+                                 
         }
         else{
-            font_info.drawString(classNamesVec.at(i), ofGetWidth()-200, 10+12*i);
+            font_info.drawString(classNamesVec.at(i),x,y);
         }
     }
+    
+}
+
+void ofxYolov2::addTrainObject(ofRectangle _r)
+{
+    train.push_back(TrainObject(class_id_selected, classNamesVec.at(class_id_selected), _r));
 }
 

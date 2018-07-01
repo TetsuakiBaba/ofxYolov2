@@ -24,9 +24,5 @@ public:
     
     ofxYolov2 yolo;
     ofRectangle r;
-
-    int id;
-    string name;
-    string filepath;
     bool flg_show_yolo_detection;
 };
