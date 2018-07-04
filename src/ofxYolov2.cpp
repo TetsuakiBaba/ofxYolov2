@@ -285,7 +285,13 @@ void ofxYolov2::loadBoundingBoxFile(string _path_to_file)
 {
     train.clear();
     vector<string>str_bb;
+    
+    if( !ofFile::doesFileExist(_path_to_file) ){
+        cout << "no such a file" << endl;
+        ofSystem("touch "+_path_to_file);
+    }
     ofBuffer ofbuf = ofBufferFromFile(_path_to_file);
+
     ofbuf.getLines();
     for( auto line: ofbuf.getLines() ){
         str_bb.push_back(line);
@@ -358,18 +364,24 @@ void ofxYolov2::loadAnnotationImage(string _path_to_file)
 void ofxYolov2::saveBoundingBoxToFile(string _path_to_file)
 {
     ofFile file;
-    file.open(_path_to_file, ofFile::WriteOnly);
-    for( int i = 0; i < train.size(); i++){
-        file <<
-        train[i].id << " " <<
-        train[i].r.x + train[i].r.getWidth()/2.0 << " " <<
-        train[i].r.y + train[i].r.getHeight()/2.0 << " " <<
-        train[i].r.getWidth() << " " <<
-        train[i].r.getHeight() << endl;
+    if( file.open(_path_to_file, ofFile::WriteOnly) ){
+        for( int i = 0; i < train.size(); i++){
+            train[i].r.standardize();
+            file <<
+            train[i].id << " " <<
+            train[i].r.x + train[i].r.getWidth()/2.0 << " " <<
+            train[i].r.y + train[i].r.getHeight()/2.0 << " " <<
+            train[i].r.getWidth() << " " <<
+            train[i].r.getHeight() << endl;
+        }
+        file.close();
+        train.clear();
+        loadBoundingBoxFile(_path_to_file);
     }
-    file.close();
-    train.clear();
-    loadBoundingBoxFile(_path_to_file);
+    else{
+        cout << "failed" << endl;
+    }
+    
 }
 
 void ofxYolov2::setNextAnnotation()

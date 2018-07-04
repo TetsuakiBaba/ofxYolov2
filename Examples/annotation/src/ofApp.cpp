@@ -4,7 +4,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+    ofSetDataPathRoot("../Resources/data/");
     // yolo setting up
     yolo.setup(ofToDataPath("yolov2-tiny.cfg"),
                ofToDataPath("yolov2-tiny.weights"),
@@ -63,6 +63,9 @@ void ofApp::keyPressed(int key){
     }
     else if( key == OF_KEY_CONTROL){
         flg_show_yolo_detection = true;
+    }
+    else if( key == OF_KEY_RETURN ){
+        yolo.saveAnnotation();
     }
 }
 
