@@ -1,5 +1,4 @@
-ofxYolov2
-====
+# ofxYolov2
 
 ## Description
 ofxYolov2 is a YOLO(You Look Only Once) addon for openframeworks.
@@ -16,16 +15,27 @@ Attention:  it runs on OpenCL.
 ## Usage
 See Examples
 
+### single_image
 ![single_image screenshot](/screenshot.png)
+Detection example for single image.
+
+### camera
+Realtime Detection example for webcam video.
+
+### annotation
 ![annotation screenshot](/screenshot_annotation.png)
+Simple annotation example to export a yolo format.
 
 ## Install
-1. Install OpenCV by brew ( $ brew install opencv )
-2. Based on OpenCV version, Please re-write addon_config.mk file. End of the file, there are some description about opencv path for your system. Please re-write the version according to your OpenCV version. Current (2018/6/15) is 3.4.1_5, If you find other version on your directory tree, /usr/local/Cellar/opencv , please do not forget fill in the correct version on the addon_config.mk file.
+1. Install OpenCV by brew.
+    $ brew install opencv
+2. Based on OpenCV version, Please re-write ofxYolov2/addon_config.mk file. End of the file, there are some description about opencv path for your system. Please re-write the version according to your OpenCV version. Current (2018/6/15) is 3.4.1_5, If you find other version on your directory tree, /usr/local/Cellar/opencv , please do not forget fill in the correct version on the addon_config.mk file. You can get your current opencv version by typing below command.
+    $ ls /usr/local/Cellar/opencv
 2. Download cfg and weights file to each examples directories. You can find download shell script on the top of ofxYolov2 directory.
-  - $ sh getYolov2Weights.sh
+    $ cd ofxYolov2
+    $ sh getYolov2Weights.sh
 3. Edit "thresh .6" to "thresh .01" on each yolov2-tiny.cfg.
-4. Import Example/camera or single_image by project generator and add only ofxYolov2 as an addon.  [Attention] Please do not include OpenCV addon in OF.  Be sure to add only ofxYolov2 addon by projectgenerator. 
+4. Import Example/camera, single_image or annotation by project generator and add only ofxYolov2 as an addon. Then update it. _Attention Please do not include OpenCV addon in OF.  Be sure to add only ofxYolov2 addon by projectgenerator._
 
 ## Compatibility
 - only macOS ( tested on Hight Sierra and Sierra)
