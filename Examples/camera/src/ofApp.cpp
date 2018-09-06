@@ -2,6 +2,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+  
+    
     // cam
     video.setDeviceID( 0 );
     video.setDesiredFrameRate( 30 );
@@ -12,7 +14,7 @@ void ofApp::setup(){
                ofToDataPath("yolov2-tiny.weights"),
                ofToDataPath("coco.names"));
     
-    yolo.setConfidenceThreshold(0.4);
+    yolo.setConfidenceThreshold(0.2);
 }
 
 //--------------------------------------------------------------

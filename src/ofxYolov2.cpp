@@ -131,6 +131,7 @@ void ofxYolov2::drawAnnotation(float _x, float _y, float _w, float _h)
 
 cv::Mat ofxYolov2::toCV(ofPixels &pix)
 {
+
     return cv::Mat(pix.getHeight(), pix.getWidth(), CV_MAKETYPE(CV_8U, pix.getNumChannels()), pix.getData(), 0);
 }
 
@@ -153,9 +154,10 @@ void ofxYolov2::update(ofPixels &op)
     //! [Set input blob]
     net.setInput(inputBlob, "data");                   //set the network input
     
+    std::vector<Mat> outs;
     //! [Make forward pass]
-    Mat detectionMat = net.forward("detection_out");   //compute output
-    
+    Mat detectionMat = net.forward("detection_out");   //compute output for yolov2
+//    Mat detectionMat = net.forward("yolo_23");   //compute output for yolov3
     
     for (int i = 0; i < detectionMat.rows; i++)
     {
@@ -201,11 +203,49 @@ void ofxYolov2::update(ofPixels &op)
 
 void ofxYolov2::setup(string _path_to_cfg, string _path_to_weights, string _path_to_names)
 {
+//    putenv("OPENCV_OPENCL_RUNTIME=");
+//    putenv("OPENCV_OPENCL_DEVICE=:DGPU:0");
+
+    
+    if (!cv::ocl::haveOpenCL())
+    {
+        cout << "OpenCL is not available..." << endl;
+        //return;
+    }
+    //cv::ocl::getPlatfomsInfo();
+
+    cv::ocl::Context context;
+    if (!context.create(cv::ocl::Device::TYPE_GPU))
+    {
+        cout << "Failed creating the context..." << endl;
+        //return;
+    }
+    
+    cout << context.ndevices() << " GPU devices are detected." << endl; //This bit provides an overview of the OpenCL devices you have in your computer
+    for (int i = 0; i < context.ndevices(); i++)
+    {
+        cv::ocl::Device device = context.device(i);
+
+        cout << "name:              " << device.name() << endl;
+        cout << "available:         " << device.available() << endl;
+        cout << "imageSupport:      " << device.imageSupport() << endl;
+        cout << "OpenCL_C_Version:  " << device.OpenCL_C_Version() << endl;
+        cout << endl;
+    }
+    //cv::ocl::setUseOpenCL( true );
+    
     String modelConfiguration = _path_to_cfg;
     String modelBinary = _path_to_weights;
     
     //! [Initialize network]
     net = readNetFromDarknet(modelConfiguration, modelBinary);
+    std::vector<String> lname = net.getLayerNames();
+    for (int i = 0; i < lname.size();i++) {
+        std::cout << i+1 << " " << lname[i] << std::endl;
+    }
+    net.setPreferableBackend(DNN_BACKEND_DEFAULT);
+    net.setPreferableTarget(DNN_TARGET_CPU);
+
 
     if (net.empty())
     {
@@ -229,7 +269,7 @@ void ofxYolov2::setup(string _path_to_cfg, string _path_to_weights, string _path
         for( auto itr : classNamesVec )
         {
             string cName = itr;
-            cout << "classNames :" << cName << endl;
+            //cout << "classNames :" << cName << endl;
         }
     }
     
@@ -379,7 +419,7 @@ void ofxYolov2::saveBoundingBoxToFile(string _path_to_file)
         loadBoundingBoxFile(_path_to_file);
     }
     else{
-        cout << "failed" << endl;
+        cout << "Failed: _path_to_file: " + _path_to_file << endl;
     }
     
 }
@@ -413,17 +453,24 @@ void ofxYolov2::drawClassSelector(float _x, float _y, int _row)
     // Show Class Selector
     int row = _row;
     float x,y;
-
+    
+    float w_max = 0;
+    for( int i = 0; i < classNamesVec.size(); i++ ){
+        float w_tmp = font_info.getStringBoundingBox(classNamesVec.at(i), 0, 0).getWidth();
+        if( w_tmp > w_max ){
+            w_max = w_tmp;
+        }
+    }
     ofRectangle r_area(_x,
                        _y,
-                       100*row,
-                       14*classNamesVec.size()/row);
+                       w_max*row,
+                       14*classNamesVec.size()/row+14);
 
     ofNoFill();
     ofDrawRectangle(r_area);
     font_info.drawString("Select a class name",r_area.x,r_area.y);
     for( int i = 0; i < classNamesVec.size(); i++ ){
-        x = _x+100*(i%row);
+        x = _x+w_max*(i%row);
         y = _y+14+14*(i/row);
         ofNoFill();
         ofSetColor(detection_color.at(i));

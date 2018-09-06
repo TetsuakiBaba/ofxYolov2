@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include <opencv2/dnn.hpp>
 #include <opencv2/dnn/shape_utils.hpp>
+#include <opencv2/core/ocl.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 #include <fstream>
@@ -13,6 +14,9 @@
 using namespace std;
 using namespace cv;
 using namespace cv::dnn;
+
+std::string Replace( std::string String1, std::string String2, std::string String3 );
+bool doesIncludeExtensions(string _filename, vector<string>_extensions);
 
 class TrainObject{
 public:
@@ -83,4 +87,5 @@ public:
     int pos_annotation_file;
     ofImage image_annotation;
     int class_id_selected;
+
 };
