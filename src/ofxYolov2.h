@@ -28,7 +28,7 @@ public:
     ~TrainObject(){
         
     }
-    int id;
+    const int id;
     string name;
     ofRectangle r;
     ofRectangle getScaledBB(float _w, float _h);
@@ -41,8 +41,8 @@ public:
     ofRectangle r;
     ofRectangle getScaledBB(float _w, float _h);
     string name;
-    float p;
-    int class_id;
+    const float p;
+    const int class_id;
 };
 
 class ofxYolov2{
@@ -72,11 +72,11 @@ public:
     
     cv::Mat toCV(ofPixels &pix);
     dnn::Net net;
-    int network_width = 416;
-    int network_height = 416;
-    vector<string> classNamesVec;
-    vector<ofColor> detection_color;
-    float confidenceThreshold;
+    const int network_width = 416;
+    const int network_height = 416;
+    const std::vector<string> classNamesVec;
+    const std::vector<ofColor> detection_color;
+    const float confidenceThreshold;
     ofTrueTypeFont font_info;
 
     string filename;
@@ -84,8 +84,8 @@ public:
     string filename_txt;
     string filepath;
     ofDirectory dir_annotation;
-    int pos_annotation_file;
+    const int pos_annotation_file;
     ofImage image_annotation;
-    int class_id_selected;
+    const int class_id_selected;
 
 };
