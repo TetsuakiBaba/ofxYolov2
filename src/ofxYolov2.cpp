@@ -232,7 +232,7 @@ void ofxYolov2::setup(string _path_to_cfg, string _path_to_weights, string _path
         cout << "OpenCL_C_Version:  " << device.OpenCL_C_Version() << endl;
         cout << endl;
     }
-    //cv::ocl::setUseOpenCL( true );
+    cv::ocl::setUseOpenCL( true );
     
     String modelConfiguration = _path_to_cfg;
     String modelBinary = _path_to_weights;
