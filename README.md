@@ -1,5 +1,5 @@
 # ofxYolov2
-## This project was merged in ofxOpenCvDnnObjectDetection, therefore, it is not maintained any more. 
+## This project was merged into ofxOpenCvDnnObjectDetection ( https://github.com/TetsuakiBaba/ofxOpenCvDnnObjectDetection ), therefore, it is not maintained any more. 
 
 ## Description
 ofxYolov2 is a YOLO(You Look Only Once) addon for openframeworks.
